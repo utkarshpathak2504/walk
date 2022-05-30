@@ -10,11 +10,13 @@ const app = express()
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
-//require('dotenv').config()
-//console.log(env)
-//console.log("aa");
+const dotenv=require('dotenv');
+dotenv.config()
+
+console.log("env",process.env.USER);
+console.log("aa");
 mongoose
-  .connect('mongodb+srv://abcd:abcd123@cluster0.deqkj.mongodb.net/?retryWrites=true&w=majority', {
+  .connect(`mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@cluster0.deqkj.mongodb.net/?retryWrites=true&w=majority`, {
     dbName: 'url-shortner',
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -76,4 +78,4 @@ app.use((err, req, res, next) => {
   res.render('index', { error: err.message })
 })
 
-app.listen(3000, () => console.log('🌏 on port 3000...'))
+app.listen(process.env.PORT, () => console.log('🌏 on port 3000...'))
