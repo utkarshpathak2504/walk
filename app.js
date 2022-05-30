@@ -16,7 +16,7 @@ dotenv.config()
 console.log("env",process.env.USER);
 console.log("aa");
 mongoose
-  .connect(`mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@cluster0.deqkj.mongodb.net/?retryWrites=true&w=majority`, {
+  .connect('mongodb+srv://abcd:abcd123@cluster0.deqkj.mongodb.net/?retryWrites=true&w=majority', {
     dbName: 'url-shortner',
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -26,7 +26,7 @@ mongoose
   .catch((error) => console.log('Error connecting..'))
 
 app.set('view engine', 'ejs')
-
+console.log(`mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@cluster0.deqkj.mongodb.net/?retryWrites=true&w=majority`)
 app.get('/', async (req, res, next) => {
   res.render('index')
 })
@@ -78,4 +78,4 @@ app.use((err, req, res, next) => {
   res.render('index', { error: err.message })
 })
 
-app.listen(process.env.PORT, () => console.log('🌏 on port 3000...'))
+app.listen(process.env.PORT|| 3000, () => console.log('🌏 on port 3000...'))
